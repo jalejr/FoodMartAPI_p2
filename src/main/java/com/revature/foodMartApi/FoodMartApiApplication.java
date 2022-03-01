@@ -8,7 +8,5 @@ public class FoodMartApiApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(FoodMartApiApplication.class, args);
-		System.out.println("Hey there");
 	}
-
 }
