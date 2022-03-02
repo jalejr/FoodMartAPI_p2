@@ -54,6 +54,14 @@
 				<configuration>
 					<image>
 						<name>foodmartvipers.azurecr.io/foodmart</name>
+						<run>
+							<env>
+								<MART_USERNAME>${env.MART_USERNAME}</MART_USERNAME>
+							</env>
+							<env>
+								<MART_PASSWORD>${env.MART_PASSWORD}</MART_PASSWORD>
+							</env>
+						</run>
 					</image>
 				</configuration>
 			</plugin>
