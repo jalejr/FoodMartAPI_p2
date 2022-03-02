@@ -53,7 +53,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<image>
-						<name></name>
+						<name>foodmartvipers.azurecr.io/foodmart</name>
 					</image>
 				</configuration>
 			</plugin>
