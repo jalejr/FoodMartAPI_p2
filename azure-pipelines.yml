@@ -28,7 +28,7 @@ steps:
    goals: 'spring-boot:build-image'
    publishJUnitResults: false
    jdkVersionOption: 1.8
-  
+
   env:
     MART_USERNAME: $(username)
     MART_PASSWORD: $(password)
