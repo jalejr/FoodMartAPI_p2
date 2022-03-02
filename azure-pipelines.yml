@@ -29,6 +29,9 @@ steps:
    publishJUnitResults: false
    jdkVersionOption: 1.8
 
+- bash: |
+    echo "Using an input-macro works: $(username)"
+
   env:
     MART_USERNAME: $(username)
     MART_PASSWORD: $(password)
