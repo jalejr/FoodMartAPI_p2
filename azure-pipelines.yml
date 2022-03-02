@@ -24,3 +24,11 @@ steps:
   env:
     MART_USERNAME: $(username)
     MART_PASSWORD: $(password)
+  
+- task: Maven@3
+  displayName: Build Docker Image
+  inputs:
+   mavenPomFile: 'pom.xml'
+   goals: 'spring-boot-build-image'
+   publishJUnitResults: false
+   jdkVersionOption: 1.8
