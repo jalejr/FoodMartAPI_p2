@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="items")
-public class items {
+@Table(name="item")
+public class GroceryItem {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +25,7 @@ public class items {
 	@Column(name="inventory_count")
 	private int inventoryCount;
 
-	public items() {
+	public GroceryItem() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
