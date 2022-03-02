@@ -1,11 +1,13 @@
 package com.revature.foodMartApi.models;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="app_users")
 public class User {
+	@Id
 	private int id;
 	private String username;
 	private String password;
