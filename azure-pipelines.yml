@@ -29,6 +29,6 @@ steps:
   displayName: Build Docker Image
   inputs:
    mavenPomFile: 'pom.xml'
-   goals: 'spring-boot-build-image'
+   goals: 'spring-boot:build-image'
    publishJUnitResults: false
    jdkVersionOption: 1.8
