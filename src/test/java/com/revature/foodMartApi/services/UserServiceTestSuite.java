@@ -45,13 +45,14 @@ class UserServiceTestSuite {
 		
 		InvalidRequestException thrown = Assertions.assertThrows(InvalidRequestException.class, () -> {
 	           //Code under test
-			when(mockUserDAO.save(null)).thenReturn(null);
+			User validUser = null;
+			when(mockUserDAO.save(validUser)).thenReturn(null);
 			
-			boolean actualResult = !(sut.addUser(null) == null);
+			boolean actualResult = !(sut.addUser(validUser) == null);
 			Assertions.assertFalse(actualResult);
-			verify(mockUserDAO, times(1)).save(null);
+			verify(mockUserDAO, times(1)).save(validUser);
 	  });
-		//Assertions.assertEquals("some message", thrown.getMessage());
+		Assertions.assertEquals("Invalid user provided.", thrown.getMessage());
 		//assertThat(response.getBody()).isEqualTo("Greetings from Spring Boot!");
 
 		
