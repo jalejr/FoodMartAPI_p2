@@ -31,7 +31,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-### Awaab ignore pom and Appliacation.yml
-appliacation.yml
-pom.xml
