@@ -3,10 +3,9 @@
  */
 package com.revature.foodMartApi.services;
 
-import java.rmi.server.ExportException;
-import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,25 +18,43 @@ import com.revature.foodMartApi.daos.RoleDAO;
  *
  */
 @Service
-@Transactional
 public class RoleService {
-	
+
 	private final RoleDAO roleDAO;
-	
+
 	@Autowired
 	public RoleService(RoleDAO roleDAO) {
 		super();
 		this.roleDAO = roleDAO;
 	}
 	
-	public List<Role> getAllRoles(){
-		return roleDAO.getAll();
-		
+	@Transactional
+	public Role createRole(String description) {
+		Role role = new Role();
+		role.setDescription(description);
+		return roleDAO.save(role);
 	}
 	
-		public Role findRoleById(int id) {
-			return roleDAO.findRoleById(id);
-		}
+	@Transactional
+	public Role updateRole (Role role) {
+		return roleDAO.save(role);
+	}
 
+	@Transactional
+	public void deleteRole(int id) {
+		roleDAO.deleteById(id);
+	}
 	
+	public List<Role> getAllRoles() {
+		return roleDAO.findAll();
+
+	}
+
+	public Role findRoleById(int id) {
+		return roleDAO.findRoleById(id);
+	}
+	
+	
+
+
 }
