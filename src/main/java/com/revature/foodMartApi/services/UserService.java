@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.foodMartApi.daos.UserDAO;
 import com.revature.foodMartApi.exceptions.InvalidRequestException;
+import com.revature.foodMartApi.exceptions.ResourcePersistenceException;
 import com.revature.foodMartApi.models.User;
 
 @Service
@@ -26,7 +27,11 @@ public class UserService {
 		if (!isValidUser(user)) {
 			throw new InvalidRequestException("Invalid user provided.");
 		}
-		userDAO.save(user);
+		User persistedUser = userDAO.save(user);
+        if(persistedUser == null){
+            throw new ResourcePersistenceException("User was not persisted.");
+        }
+    
 		return user;
 	}
 	
