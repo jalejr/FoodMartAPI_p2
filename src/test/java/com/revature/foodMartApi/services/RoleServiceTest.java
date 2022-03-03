@@ -1,24 +1,33 @@
 package com.revature.foodMartApi.services;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.util.List;
-
-import org.assertj.core.api.Assert;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.revature.foodMartApi.Model.Role;
+import com.revature.foodMartApi.daos.RoleDAO;
+import com.revature.foodMartApi.models.Role;
 
+@ExtendWith(MockitoExtension.class)
 class RoleServiceTest {
-	@Autowired
-	private RoleService roleService;
+	@Mock
+	private RoleDAO roleDAO;
 	
+	RoleService roleService;
+	
+	@BeforeEach
+	void testPrep() {
+		roleService = new RoleService(roleDAO);
+	}
 	
 	@Test
-	public void whenApplicationStarts_thenHibernateCreatesInitialRecordForRole() {
-		List<Role> roles = roleService.getAllRoles();
-		assertEquals(roles.size(), 0);
+	public void when_create_role() {
+		Role role = roleService.createRole("test role");
+//		assertEquals(roles, 0);
+		assertNotNull(role);
 	}
 
 }
