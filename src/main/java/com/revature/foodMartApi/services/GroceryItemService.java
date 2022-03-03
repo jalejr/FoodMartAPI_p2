@@ -1,6 +1,7 @@
 package com.revature.foodMartApi.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.foodMartApi.models.GroceryItem;
 import com.revature.foodMartApi.daos.GroceryItemDAO;
+import com.revature.foodMartApi.exceptions.InvalidRequestException;
 
 @Service
 public class GroceryItemService {
@@ -20,33 +22,47 @@ public class GroceryItemService {
 
 	@Transactional
 	public GroceryItem newItem(GroceryItem item) {
-		if (!isValidItem(item)) {
-// TODO!			throw new InvalidRequestException("Invalid item provided.");
-		}
+		if (!isValidItem(item))  throw new InvalidRequestException("Invalid item provided.");
+			
 		groceryItemDAO.save(item);
 		return item;
 
 	}
 
 	public List<GroceryItem> findAllItems() {
-		return null;
+		return (List<GroceryItem>) groceryItemDAO.findAll();
 	}
 
-	public GroceryItem findItemById() {
-		return null;
+	public Optional<GroceryItem> findItemById(int id) {
+		return groceryItemDAO.findById(id);
 	}
 	
-	public GroceryItem findByInventoryCount() {
-		return null;
+/*	public <Optional>GroceryItem findByInventoryCount(int inventoryCount) {
+		return groceryItemDAO.find;
 	}
-
+*/
+	public boolean deleteGroceryItem(GroceryItem groceryItem) {
+		int id = groceryItem.getItemId();
+		groceryItemDAO.deleteById(id);
+		return !groceryItemDAO.existsById(id);
+	}
+	
+	public boolean deleteGroceryItemById(int id) {
+		groceryItemDAO.deleteById(id);
+		return !groceryItemDAO.existsById(id);
+	}
 	public boolean isValidItem(GroceryItem item) {
 		// TODO add more validation constraints
-		if (item == null) {
+		if (item == null)
 			return false;
-		} else {
-			return true;
-		}
+		if(item.getItemId() < 0)
+			return false;
+		if(item.getItemName() == null)
+			return false;
+		if(item.getItemPrice() <= 0)
+			return false;
+
+		return true;	
 	}
 
 }
