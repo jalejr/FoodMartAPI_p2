@@ -1,18 +1,20 @@
 /**
  * 
  */
-package com.revature.foodMartApi.Model;
+package com.revature.foodMartApi.models;
 
-import java.util.Objects;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+import java.util.Objects;
+
+import javax.persistence.*;
+import javax.persistence.Table;
 
 /**
  * @author Awaab
@@ -22,6 +24,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 //@EntityScan
 @Entity
 @Table(name = "roles")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Role {
 
 	@Id
@@ -32,21 +35,21 @@ public class Role {
 	@Column(unique = true, nullable = false)
 	private String description;
 
-	public Role() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public Role(String description) {
-		super();
-		this.description = description;
-	}
-
-	public Role(int id, String description) {
-		super();
-		this.roleId = id;
-		this.description = description;
-	}
+//	public Role() {
+//		super();
+//		// TODO Auto-generated constructor stub
+//	}
+//
+//	public Role(String description) {
+//		super();
+//		this.description = description;
+//	}
+//
+//	public Role(int id, String description) {
+//		super();
+//		this.roleId = id;
+//		this.description = description;
+//	}
 
 	public int getId() {
 		return roleId;
