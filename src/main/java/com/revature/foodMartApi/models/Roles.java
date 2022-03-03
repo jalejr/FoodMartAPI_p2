@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.revature.foodMartApi.Model;
+package com.revature.foodMartApi.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

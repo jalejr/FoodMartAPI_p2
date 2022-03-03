@@ -3,20 +3,19 @@ package com.revature.foodMartApi.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.foodMartApi.models.GroceryItem;
-import com.revature.foodMartApi.daos.ItemDAO;
+import com.revature.foodMartApi.daos.GroceryItemDAO;
 
 @Service
-public class ItemService {
-	private final ItemDAO itemDAO;
+public class GroceryItemService {
+	private final GroceryItemDAO groceryItemDAO;
 
 	@Autowired
-	public ItemService(ItemDAO itemDAO) {
-		this.itemDAO = itemDAO;
+	public GroceryItemService(GroceryItemDAO groceryItemDAO) {
+		this.groceryItemDAO = groceryItemDAO;
 	}
 
 	@Transactional
@@ -24,7 +23,7 @@ public class ItemService {
 		if (!isValidItem(item)) {
 // TODO!			throw new InvalidRequestException("Invalid item provided.");
 		}
-		itemDAO.save(item);
+		groceryItemDAO.save(item);
 		return item;
 
 	}
