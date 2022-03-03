@@ -34,4 +34,4 @@ build/
 
 ### Awaab ignore pom and Appliacation.yml
 appliacation.yml
-pom.xml
+src/main/resources/application.yml
