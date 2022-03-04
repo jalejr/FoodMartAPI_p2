@@ -148,7 +148,7 @@ class UserServiceTestSuite {
 		User foundUser = new User(1, "valid", "valid", "valid");
 		when(mockUserDAO.findById(invalidId)).thenReturn(null);
 
-		Assertions.assertNull(sut.findUserById(invalidId));
+		Assertions.assertFalse(sut.findUserById(invalidId)== foundUser);
 		verify(mockUserDAO, times(1)).findById(invalidId);
 	}
 

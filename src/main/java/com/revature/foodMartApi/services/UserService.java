@@ -32,11 +32,9 @@ public class UserService {
         if (!isUsernameAvailable || !isEmailAvailable) {
             if (isUsernameAvailable) {
                 throw new InvalidRequestException("Email not available.");
-            }
-            else if (isEmailAvailable) {
+            } else if (isEmailAvailable) {
                 throw new InvalidRequestException("Username not available.");
-            }
-            else {
+            } else {
                 throw new InvalidRequestException("Username and Email not available.");
             }
         }
@@ -65,11 +63,14 @@ public class UserService {
     }
 
     public User findUserById(int id) {
-        Optional<User> foundUser = userDAO.findById(id);
-        if (foundUser.isPresent()){
+        //TODO handles null pointer exception when optional type object is null
+        try {
+            Optional<User> foundUser = userDAO.findById(id);
             return foundUser.get();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     public User findUserByUsername(String username) {
