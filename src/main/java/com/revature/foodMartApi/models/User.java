@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -19,10 +21,12 @@ public class User {
 	@Column(name = "user_id", nullable = false)
 	private int id;
 	@Column(unique = true, nullable = false)
+	@Min(3)
 	private String username;
 	@Column(nullable = false)
 	private String password;
 	@Column(unique = true, nullable = false)
+	@Email
 	private String email;
 	@ManyToOne
 	@JoinColumn(name = "role", nullable = false)

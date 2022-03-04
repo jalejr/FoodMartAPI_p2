@@ -2,6 +2,7 @@ package com.revature.foodMartApi.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,9 +65,11 @@ public class UserService {
     }
 
     public User findUserById(int id) {
-        // TODO
-
-        return userDAO.findById(id).get();
+        Optional<User> foundUser = userDAO.findById(id);
+        if (foundUser.isPresent()){
+            return foundUser.get();
+        }
+        return null;
     }
 
     public User findUserByUsername(String username) {
