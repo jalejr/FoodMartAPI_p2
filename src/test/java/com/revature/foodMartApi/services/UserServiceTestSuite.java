@@ -12,7 +12,6 @@ import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.w3c.dom.UserDataHandler;
 
 import com.revature.foodMartApi.exceptions.InvalidRequestException;
 import com.revature.foodMartApi.exceptions.ResourcePersistenceException;
@@ -137,7 +136,7 @@ class UserServiceTestSuite {
 	void test_findUserById_returnsUser_givenValidId() {
 		int validId = 1;
 		User foundUser = new User(validId, "valid", "valid", "valid");
-		when(mockUserDAO.findById(validId)).thenReturn(foundUser);
+		when(mockUserDAO.findById(validId)).thenReturn(Optional.of(foundUser));
 
 		Assertions.assertTrue(sut.findUserById(validId) == foundUser);
 		verify(mockUserDAO, times(1)).findById(validId);
@@ -149,7 +148,7 @@ class UserServiceTestSuite {
 		User foundUser = new User(1, "valid", "valid", "valid");
 		when(mockUserDAO.findById(invalidId)).thenReturn(null);
 
-		Assertions.assertFalse(sut.findUserById(invalidId) == foundUser);
+		Assertions.assertNull(sut.findUserById(invalidId));
 		verify(mockUserDAO, times(1)).findById(invalidId);
 	}
 
