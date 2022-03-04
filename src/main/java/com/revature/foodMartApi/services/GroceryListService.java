@@ -22,7 +22,7 @@ public class GroceryListService {
     }
 
     public GroceryList addGroceryList(GroceryList groceryList) {
-        if(!isValidGroceryList(groceryList)) throw new InvalidRequestException("Invalid Grocery List provided...");
+        //if(!isValidGroceryList(groceryList)) throw new InvalidRequestException("Invalid Grocery List provided...");
         groceryListDAO.save(groceryList);
         return groceryList;
     }
