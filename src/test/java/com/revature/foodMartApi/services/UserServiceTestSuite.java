@@ -27,7 +27,8 @@ class UserServiceTestSuite {
 		mockUserDAO = mock(UserDAO.class);
 		sut = new UserService(mockUserDAO);
 	}
-//create
+
+	// create
 	@Test
 	void test_addUser_returnsTrue_givenValidUser() {
 		User validUser = new User("valid", "valid", "valid");
@@ -56,7 +57,7 @@ class UserServiceTestSuite {
 			sut.addUser(invalidUser);
 		});
 		Assertions.assertEquals("Invalid user data provided.", thrown.getMessage());
-		
+
 		thrown = Assertions.assertThrows(InvalidRequestException.class, () -> {
 			User invalidUser = new User(null, "valid", "valid");
 			Assertions.assertNull(sut.addUser(invalidUser));
@@ -71,7 +72,7 @@ class UserServiceTestSuite {
 			sut.addUser(invalidUser);
 		});
 		Assertions.assertEquals("Invalid user data provided.", thrown.getMessage());
-		
+
 		thrown = Assertions.assertThrows(InvalidRequestException.class, () -> {
 			User invalidUser = new User("valid", "valid", null);
 			sut.addUser(invalidUser);
@@ -86,7 +87,7 @@ class UserServiceTestSuite {
 			sut.addUser(invalidUser);
 		});
 		Assertions.assertEquals("Invalid user data provided.", thrown.getMessage());
-		
+
 		thrown = Assertions.assertThrows(InvalidRequestException.class, () -> {
 			User invalidUser = new User("valid", null, "valid");
 			sut.addUser(invalidUser);
@@ -102,13 +103,14 @@ class UserServiceTestSuite {
 		when(mockUserDAO.save(validUser)).thenReturn(null);
 		ResourcePersistenceException thrown = Assertions.assertThrows(ResourcePersistenceException.class, () -> {
 			// Code under test
-			
+
 			Assertions.assertNull(sut.addUser(validUser));
 		});
 		Assertions.assertEquals("User was not persisted.", thrown.getMessage());
 		verify(mockUserDAO, times(1)).save(validUser);
 	}
-//read
+
+	// read
 	@Test
 	void test_findAllUsers_returnsCollection() {
 		List<User> users = new ArrayList<>();
@@ -148,30 +150,49 @@ class UserServiceTestSuite {
 		User foundUser = new User(1, "valid", "valid", "valid");
 		when(mockUserDAO.findById(invalidId)).thenReturn(null);
 
-		Assertions.assertNull(sut.findUserById(invalidId));
+		Assertions.assertFalse(sut.findUserById(invalidId) == foundUser);
 		verify(mockUserDAO, times(1)).findById(invalidId);
 	}
 
 	@Test
 	void test_findUserByUsername_returnsUser_givenValidUsername() {
+		String validUsername = "validUsername";
+		User foundUser = new User(validUsername, "valid", "valid");
+		when(mockUserDAO.findByUsername(validUsername)).thenReturn(foundUser);
 
+		Assertions.assertTrue(sut.findUserByUsername(validUsername) == foundUser);
+		verify(mockUserDAO, times(1)).findByUsername(validUsername);
 	}
 
 	@Test
 	void test_findUserByUsername_returnsNull_givenInvalidUsername() {
+		String invalidUsername = "invalid";
+		when(mockUserDAO.findByUsername(invalidUsername)).thenReturn(null);
 
+		Assertions.assertNull(sut.findUserByUsername(invalidUsername));
+		verify(mockUserDAO, times(1)).findByUsername(invalidUsername);
 	}
 
 	@Test
 	void test_findUserByEmail_returnsUser_givenValidEmail() {
+		String validEmail = "validEmail";
+		User foundUser = new User("valid", validEmail, "valid");
+		when(mockUserDAO.findByUsername(validEmail)).thenReturn(foundUser);
 
+		Assertions.assertTrue(sut.findUserByUsername(validEmail) == foundUser);
+		verify(mockUserDAO, times(1)).findByUsername(validEmail);
 	}
 
 	@Test
 	void test_findUserByEmail_returnsNull_givenInvalidEmail() {
+		String invalidEmail = "invalid";
+		when(mockUserDAO.findByEmail(invalidEmail)).thenReturn(null);
 
+		Assertions.assertNull(sut.findUserByEmail(invalidEmail));
+		verify(mockUserDAO, times(1)).findByEmail(invalidEmail);
 	}
-//authenticate
+
+	// authenticate
 	@Test
 	void test_authenticateUser_returnsUser_givenValidUser() {
 
@@ -181,10 +202,17 @@ class UserServiceTestSuite {
 	void test_authenticateUser_throwsAuthenticationException_givenInvalidUser() {
 
 	}
-//update
+
+	// update
 	@Test
 	void test_updateUser_returnsTrue_givenValidUser() {
+		User validUser = new User("valid", "valid", "valid");
+		when(mockUserDAO.save(validUser)).thenReturn(validUser);
 
+		boolean actualResult = sut.updateUser(validUser);
+
+		Assertions.assertTrue(actualResult);
+		verify(mockUserDAO, times(1)).save(validUser);
 	}
 
 	// throw ResourcePersistenceException?
@@ -192,7 +220,8 @@ class UserServiceTestSuite {
 	void test_updateUser_returnsFalse_givenInvalidUser() {
 
 	}
-//delete
+
+	// delete
 	@Test
 	void test_deleteUser_returnsTrue_givenValidUser() {
 
@@ -203,7 +232,7 @@ class UserServiceTestSuite {
 	void test_deleteUser_returnsFalse_givenInvalidUser() {
 
 	}
-//isValid -- already covered in add user
+	// isValid -- already covered in add user
 	// @Test
 	// void test_isValidUser_returnsTrue_givenValidUser() {
 
@@ -213,24 +242,24 @@ class UserServiceTestSuite {
 	// void test_isValidUser_returnsFalse_givenInvalidUser() {
 
 	// }
-//method only calls dao function, testing isn't relevant to service layer
+	// method only calls dao function, testing isn't relevant to service layer
 	// @Test
 	// void test_IsEmailAvailable_returnsTrue_givenNewEmail() {
-		
+
 	// }
 
 	// @Test
 	// void test_IsEmailAvailable_returnsFalse_givenExistingEmail() {
-		
+
 	// }
 
 	// @Test
 	// void test_IsUsernameAvailable_returnsTrue_givenNewUsername() {
-		
+
 	// }
 
 	// @Test
 	// void test_IsUsernameAvailable_returnsFalse_givenExistingUsername() {
-		
+
 	// }
 }

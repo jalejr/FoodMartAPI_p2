@@ -2,7 +2,7 @@ package com.revature.foodMartApi.services;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,28 +23,26 @@ public class UserService {
         this.userDAO = userDAO;
     }
 
-    public User addUser(User user) {
-        if (!isValidUser(user)) {
+    public User addUser(User newUser) {
+        if (!isValidUser(newUser)) {
             throw new InvalidRequestException("Invalid user data provided.");
         }
-        boolean isEmailAvailable = isEmailAvailable(user.getEmail());
-        boolean isUsernameAvailable = isUsernameAvailable(user.getUsername());
+        boolean isEmailAvailable = isEmailAvailable(newUser.getEmail());
+        boolean isUsernameAvailable = isUsernameAvailable(newUser.getUsername());
         if (!isUsernameAvailable || !isEmailAvailable) {
             if (isUsernameAvailable) {
                 throw new InvalidRequestException("Email not available.");
-            }
-            else if (isEmailAvailable) {
+            } else if (isEmailAvailable) {
                 throw new InvalidRequestException("Username not available.");
-            }
-            else {
+            } else {
                 throw new InvalidRequestException("Username and Email not available.");
             }
         }
-        User persistedUser = userDAO.save(user);
+        User persistedUser = userDAO.save(newUser);
         if (persistedUser == null) {
             throw new ResourcePersistenceException("User was not persisted.");
         }
-        return user;
+        return newUser;
     }
 
     public boolean isUsernameAvailable(String username) {
@@ -65,11 +63,13 @@ public class UserService {
     }
 
     public User findUserById(int id) {
-        Optional<User> foundUser = userDAO.findById(id);
-        if (foundUser.isPresent()){
-            return foundUser.get();
+        // TODO handles null pointer exception when optional type object is null
+        try {
+            return userDAO.findById(id).get();
+        } catch (NullPointerException | NoSuchElementException e) {
+            // e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     public User findUserByUsername(String username) {
@@ -98,7 +98,7 @@ public class UserService {
     }
 
     private boolean isValidUser(User user) {
-        // TODO add more validation constraints
+        // TODO consider more validation constraints
         if (user == null) {
             return false;
         } else if (user.getUsername() == null || user.getUsername().equals("")) {
