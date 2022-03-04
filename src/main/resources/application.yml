@@ -3,6 +3,11 @@ server:
 
 spring:
   datasource:
+#    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+#    url: jdbc:sqlserver://;serverName=azure-server-demo-robles.database.windows.net;databaseName=azure-db-dem-robles;encrypt=true
+#    username: ${MART_USERNAME}
+#    password: ${MART_PASSWORD}
+    
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     url: jdbc:sqlserver://;serverName=azure-server-demo-robles.database.windows.net;databaseName=azure-db-dem-robles;encrypt=true
     username: ${MART_USERNAME}
