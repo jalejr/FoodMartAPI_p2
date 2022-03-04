@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,10 +38,10 @@ public class GroceryItemService {
 		return groceryItemDAO.findById(id);
 	}
 	
-/*	public <Optional>GroceryItem findByInventoryCount(int inventoryCount) {
-		return groceryItemDAO.find;
+	public String findByName(String itemName) {
+		return  groceryItemDAO.findByName(itemName);
 	}
-*/
+
 	public boolean deleteGroceryItem(GroceryItem groceryItem) {
 		int id = groceryItem.getItemId();
 		groceryItemDAO.deleteById(id);
