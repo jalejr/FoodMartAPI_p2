@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface GroceryItemDAO extends CrudRepository<GroceryItem, Integer>{
 
 	
-	public String findByName(String itemName);
+//	public String findByName(String itemName);
 	//TODO Just leaving this for you to see. No idea why this is causing the contextLoads to fail
 	//commented it out for now
 	//GroceryItem findItemById(int itemId);

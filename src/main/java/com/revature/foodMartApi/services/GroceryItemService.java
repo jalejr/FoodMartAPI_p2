@@ -38,9 +38,9 @@ public class GroceryItemService {
 		return groceryItemDAO.findById(id);
 	}
 	
-	public String findByName(String itemName) {
-		return  groceryItemDAO.findByName(itemName);
-	}
+//	public String findByName(String itemName) {
+//		return  groceryItemDAO.findByName(itemName);
+//	}
 
 	public boolean deleteGroceryItem(GroceryItem groceryItem) {
 		int id = groceryItem.getItemId();
