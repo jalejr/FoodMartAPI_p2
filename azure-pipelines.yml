@@ -25,18 +25,10 @@ steps:
     MART_USERNAME: $(username)
     MART_PASSWORD: $(password)
 
-- task: BuildpacksTask@1
-  inputs:
-    command: 'build'
-    envVariables: |
-      MART_USERNAME=$(username)
-      MART_PASSWORD=$(password)
-    pullPolicy: 'always'
-
-- task: Maven@3
-  displayName: Build Docker Image
-  inputs:
-    mavenPomFile: 'pom.xml'
-    goals: 'spring-boot:build-image'
-    publishJUnitResults: false
-    jdkVersionOption: 1.8
+# - task: Maven@3
+#   displayName: Build Docker Image
+#   inputs:
+#     mavenPomFile: 'pom.xml'
+#     goals: 'spring-boot:build-image'
+#     publishJUnitResults: false
+#     jdkVersionOption: 1.8
