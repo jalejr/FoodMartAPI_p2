@@ -206,19 +206,36 @@ class UserServiceTestSuite {
 	// update
 	@Test
 	void test_updateUser_returnsTrue_givenValidUser() {
-		User validUser = new User("valid", "valid", "valid");
+		User validUser = new User(1, "valid", "valid", "valid");
+
+		when(mockUserDAO.findById(validUser.getId())).thenReturn(Optional.of(validUser));
 		when(mockUserDAO.save(validUser)).thenReturn(validUser);
 
 		boolean actualResult = sut.updateUser(validUser);
 
 		Assertions.assertTrue(actualResult);
+		verify(mockUserDAO, times(1)).findById(validUser.getId());
 		verify(mockUserDAO, times(1)).save(validUser);
 	}
-
-	// throw ResourcePersistenceException?
 	@Test
-	void test_updateUser_returnsFalse_givenInvalidUser() {
-
+	void test_updateUser_throwsInvalidRequestException_givenInvalidUser() {
+		User newUser = new User("", "valid", "valid");
+		InvalidRequestException thrown = Assertions.assertThrows(InvalidRequestException.class, () -> {
+			
+			Assertions.assertNull(sut.updateUser(newUser));
+		});
+		Assertions.assertEquals("Invalid user data provided.", thrown.getMessage());
+	}
+	@Test
+	void test_updateUser_throwsInvalidRequestException_givenUserNotInDatabase() {
+		User newUser = new User(1, "valid", "valid", "valid");
+		when(mockUserDAO.findById(newUser.getId())).thenReturn(null);
+		when(mockUserDAO.save(newUser)).thenReturn(null);
+		InvalidRequestException thrown = Assertions.assertThrows(InvalidRequestException.class, () -> {
+			
+			Assertions.assertNull(sut.updateUser(newUser));
+		});
+		Assertions.assertEquals("Invalid Request: Cannot update user not in database.", thrown.getMessage());
 	}
 
 	// delete

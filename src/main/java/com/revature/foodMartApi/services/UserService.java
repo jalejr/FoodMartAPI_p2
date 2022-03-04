@@ -87,13 +87,28 @@ public class UserService {
         return null;
     }
 
-    public boolean updateUser(User user) {
+    public boolean updateUser(User updatedUser) {
         // TODO
+        //check if valid
+        if (!isValidUser(updatedUser)) {
+            throw new InvalidRequestException("Invalid user data provided.");
+        }
+        //check if exists? return false : execute update
+        //on false, throw invalid request exception, offer to register?
+        if (userDAO.findById(updatedUser.getId()) == null){
+            throw new InvalidRequestException("Invalid Request: Cannot update user not in database.");
+        }
+        if (userDAO.save(updatedUser) == updatedUser){
+            return true;
+        }
         return false;
     }
 
     public boolean deleteUser(User user) {
         // TODO
+        //check if valid
+        //check if exists? return false : execute delete
+        //on false, throw invalid request exception?
         return false;
     }
 
