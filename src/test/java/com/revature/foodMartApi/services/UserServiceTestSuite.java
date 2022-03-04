@@ -1,5 +1,6 @@
 package com.revature.foodMartApi.services;
 
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -217,37 +218,65 @@ class UserServiceTestSuite {
 		verify(mockUserDAO, times(1)).findById(validUser.getId());
 		verify(mockUserDAO, times(1)).save(validUser);
 	}
+
 	@Test
 	void test_updateUser_throwsInvalidRequestException_givenInvalidUser() {
 		User newUser = new User("", "valid", "valid");
 		InvalidRequestException thrown = Assertions.assertThrows(InvalidRequestException.class, () -> {
-			
+
 			Assertions.assertNull(sut.updateUser(newUser));
 		});
 		Assertions.assertEquals("Invalid user data provided.", thrown.getMessage());
 	}
+
 	@Test
 	void test_updateUser_throwsInvalidRequestException_givenUserNotInDatabase() {
 		User newUser = new User(1, "valid", "valid", "valid");
 		when(mockUserDAO.findById(newUser.getId())).thenReturn(null);
 		when(mockUserDAO.save(newUser)).thenReturn(null);
 		InvalidRequestException thrown = Assertions.assertThrows(InvalidRequestException.class, () -> {
-			
+
 			Assertions.assertNull(sut.updateUser(newUser));
 		});
 		Assertions.assertEquals("Invalid Request: Cannot update user not in database.", thrown.getMessage());
+		verify(mockUserDAO, times(1)).findById(newUser.getId());
+		verify(mockUserDAO, times(0)).save(newUser);
 	}
 
 	// delete
 	@Test
-	void test_deleteUser_returnsTrue_givenValidUser() {
-
+	void test_deleteUser_succeeds_givenValidUser() {
+		User deletedUser = new User(1, "valid", "valid", "valid");
+		when(mockUserDAO.findById(deletedUser.getId())).thenReturn(Optional.of(deletedUser));
+		// when(mockUserDAO.delete(deletedUser)).doNothing();
+		// Assertions.assertNull(sut.updateUser(deletedUser));
+		sut.deleteUser(deletedUser);
+		verify(mockUserDAO, times(1)).delete(deletedUser);
 	}
 
 	// throw ResourcePersistenceException?
 	@Test
-	void test_deleteUser_returnsFalse_givenInvalidUser() {
+	void test_deleteUser_throwsInvalidRequestException_givenInvalidUser() {
+		User deletedUser = new User(1, "valid", "valid", "valid");
+		when(mockUserDAO.findById(deletedUser.getId())).thenReturn(Optional.of(deletedUser));
+		// when(mockUserDAO.delete(deletedUser)).thenReturn(null);
+		InvalidRequestException thrown = Assertions.assertThrows(InvalidRequestException.class, () -> {
 
+			sut.deleteUser(deletedUser);
+		});
+		Assertions.assertEquals("Invalid user data provided.", thrown.getMessage());
+	}
+
+	@Test
+	void test_deleteUser_throwsInvalidRequestException_givenUserNotInDatabase() {
+		User newUser = new User(1, "valid", "valid", "valid");
+		when(mockUserDAO.findById(newUser.getId())).thenReturn(null);
+		// when(mockUserDAO.delete(newUser)).thenReturn(null);
+		InvalidRequestException thrown = Assertions.assertThrows(InvalidRequestException.class, () -> {
+
+			sut.deleteUser(newUser);
+		});
+		Assertions.assertEquals("Invalid Request: Cannot delete user not in database.", thrown.getMessage());
 	}
 	// isValid -- already covered in add user
 	// @Test

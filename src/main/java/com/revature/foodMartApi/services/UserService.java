@@ -73,13 +73,13 @@ public class UserService {
     }
 
     public User findUserByUsername(String username) {
-        // TODO
-        return null;
+        //TODO valid input check
+        return userDAO.findByUsername(username);
     }
 
     public User findUserByEmail(String email) {
-        // TODO
-        return null;
+        //TODO valid input check
+        return userDAO.findByEmail(email);
     }
 
     public User authenticateUser(User user) {
