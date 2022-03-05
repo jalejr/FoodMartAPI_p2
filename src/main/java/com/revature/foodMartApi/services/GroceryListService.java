@@ -35,10 +35,7 @@ public class GroceryListService {
         return groceryListDAO.findById(id);
     }
 
-    //TODO implement this search
-    public Optional<GroceryList> findGroceryListByUserListId(Long id) {
-        return null;
-    }
+    public Optional<GroceryList> findGroceryListByUserListId(int id) { return groceryListDAO.findGroceryListByListId(id); }
 
     public boolean deleteGroceryList(GroceryList groceryList) {
         Long id = groceryList.getGroceryListId();

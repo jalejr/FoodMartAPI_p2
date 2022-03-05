@@ -33,7 +33,7 @@ public class GroceryListServlet {
     }
 
     @GetMapping("/userList")
-    public Optional<GroceryList> findGroceryListByUserListId(@RequestParam Long id) {
+    public Optional<GroceryList> findGroceryListByUserListId(@RequestParam int id) {
         return groceryListService.findGroceryListByUserListId(id);
     }
 

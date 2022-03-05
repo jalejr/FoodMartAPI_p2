@@ -26,12 +26,6 @@ public class GroceryList {
     public GroceryList() {
     }
 
-    //TODO remove when this is no longer relevant aka when other models inserted
-    public GroceryList(Long GroceryListId, int itemCount) {
-        this.groceryListId = GroceryListId;
-        this.itemCount = itemCount;
-    }
-
     public GroceryList(Long groceryListId, UserList listId, GroceryItem itemId, int itemCount) {
         this.groceryListId = groceryListId;
         this.listId = listId;
