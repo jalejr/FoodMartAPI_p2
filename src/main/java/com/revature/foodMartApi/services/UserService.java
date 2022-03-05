@@ -1,6 +1,8 @@
 package com.revature.foodMartApi.services;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.foodMartApi.daos.UserDAO;
 import com.revature.foodMartApi.exceptions.InvalidRequestException;
+import com.revature.foodMartApi.exceptions.ResourcePersistenceException;
 import com.revature.foodMartApi.models.User;
 
 @Service
