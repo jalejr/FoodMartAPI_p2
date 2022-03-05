@@ -38,7 +38,6 @@ class UserServiceTestSuite {
 		when(mockUserDAO.save(validUser)).thenReturn(validUser);
 
 		boolean actualResult = !(sut.addUser(validUser) == null);
-
 		Assertions.assertTrue(actualResult);
 		verify(mockUserDAO, times(1)).save(validUser);
 	}
@@ -103,8 +102,6 @@ class UserServiceTestSuite {
 		when(mockUserDAO.findByUsername(validUser.getUsername())).thenReturn(null);
 		when(mockUserDAO.save(validUser)).thenReturn(null);
 		ResourcePersistenceException thrown = Assertions.assertThrows(ResourcePersistenceException.class, () -> {
-			// Code under test
-
 			Assertions.assertNull(sut.addUser(validUser));
 		});
 		Assertions.assertEquals("User was not persisted.", thrown.getMessage());
@@ -115,11 +112,9 @@ class UserServiceTestSuite {
 	@Test
 	void test_findAllUsers_returnsCollection() {
 		List<User> users = new ArrayList<>();
-
 		when(mockUserDAO.findAll()).thenReturn(users);
 
 		boolean actualResult = !(sut.findAllUsers() == null);
-
 		Assertions.assertTrue(actualResult);
 		verify(mockUserDAO, times(1)).findAll();
 	}
@@ -223,7 +218,6 @@ class UserServiceTestSuite {
 	void test_updateUser_throwsInvalidRequestException_givenInvalidUser() {
 		User newUser = new User("", "valid", "valid");
 		InvalidRequestException thrown = Assertions.assertThrows(InvalidRequestException.class, () -> {
-
 			Assertions.assertNull(sut.updateUser(newUser));
 		});
 		Assertions.assertEquals("Invalid user data provided.", thrown.getMessage());
@@ -235,7 +229,6 @@ class UserServiceTestSuite {
 		when(mockUserDAO.findById(newUser.getId())).thenReturn(null);
 		when(mockUserDAO.save(newUser)).thenReturn(null);
 		InvalidRequestException thrown = Assertions.assertThrows(InvalidRequestException.class, () -> {
-
 			Assertions.assertNull(sut.updateUser(newUser));
 		});
 		Assertions.assertEquals("Invalid Request: Cannot update user not in database.", thrown.getMessage());
@@ -247,37 +240,55 @@ class UserServiceTestSuite {
 	@Test
 	void test_deleteUser_succeeds_givenValidUser() {
 		User deletedUser = new User(1, "valid", "valid", "valid");
-		when(mockUserDAO.findById(deletedUser.getId())).thenReturn(Optional.of(deletedUser));
+		when(mockUserDAO.findById(deletedUser.getId())).thenReturn(Optional.of(deletedUser), null);
 		// when(mockUserDAO.delete(deletedUser)).doNothing();
 		// Assertions.assertNull(sut.updateUser(deletedUser));
 		sut.deleteUser(deletedUser);
 		verify(mockUserDAO, times(1)).delete(deletedUser);
+		verify(mockUserDAO, times(2)).findById(deletedUser.getId());
 	}
 
 	// throw ResourcePersistenceException?
 	@Test
 	void test_deleteUser_throwsInvalidRequestException_givenInvalidUser() {
-		User deletedUser = new User(1, "valid", "valid", "valid");
+		User deletedUser = new User(1, "", "valid", "valid");
 		when(mockUserDAO.findById(deletedUser.getId())).thenReturn(Optional.of(deletedUser));
 		// when(mockUserDAO.delete(deletedUser)).thenReturn(null);
 		InvalidRequestException thrown = Assertions.assertThrows(InvalidRequestException.class, () -> {
-
 			sut.deleteUser(deletedUser);
 		});
 		Assertions.assertEquals("Invalid user data provided.", thrown.getMessage());
+		verify(mockUserDAO, times(0)).delete(deletedUser);
+		verify(mockUserDAO, times(0)).findById(deletedUser.getId());
 	}
 
 	@Test
 	void test_deleteUser_throwsInvalidRequestException_givenUserNotInDatabase() {
-		User newUser = new User(1, "valid", "valid", "valid");
-		when(mockUserDAO.findById(newUser.getId())).thenReturn(null);
+		User deletedUser = new User(1, "valid", "valid", "valid");
+		when(mockUserDAO.findById(deletedUser.getId())).thenReturn(null);
 		// when(mockUserDAO.delete(newUser)).thenReturn(null);
 		InvalidRequestException thrown = Assertions.assertThrows(InvalidRequestException.class, () -> {
-
-			sut.deleteUser(newUser);
+			sut.deleteUser(deletedUser);
 		});
 		Assertions.assertEquals("Invalid Request: Cannot delete user not in database.", thrown.getMessage());
+		verify(mockUserDAO, times(0)).delete(deletedUser);
+		verify(mockUserDAO, times(1)).findById(deletedUser.getId());
 	}
+
+	@Test
+	void test_deleteUser_throwsResourcePersistenceException_ifUserNotDeleted() {
+		User deletedUser = new User(1, "valid", "valid", "valid");
+		when(mockUserDAO.findById(deletedUser.getId())).thenReturn(Optional.of(deletedUser), Optional.of(deletedUser));
+		// when(mockUserDAO.delete(newUser)).thenReturn(null);
+		ResourcePersistenceException thrown = Assertions.assertThrows(ResourcePersistenceException.class, () -> {
+			sut.deleteUser(deletedUser);
+		});
+		Assertions.assertEquals("User deletion was not persisted.", thrown.getMessage());
+		verify(mockUserDAO, times(1)).delete(deletedUser);
+		verify(mockUserDAO, times(2)).findById(deletedUser.getId());
+	}
+
+
 	// isValid -- already covered in add user
 	// @Test
 	// void test_isValidUser_returnsTrue_givenValidUser() {

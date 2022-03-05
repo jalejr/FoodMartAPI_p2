@@ -73,12 +73,16 @@ public class UserService {
     }
 
     public User findUserByUsername(String username) {
-        //TODO valid input check
+        if(username == null || username.equals("")){
+            return null;
+        }
         return userDAO.findByUsername(username);
     }
 
     public User findUserByEmail(String email) {
-        //TODO valid input check
+        if(email == null || email.equals("")){
+            return null;
+        }
         return userDAO.findByEmail(email);
     }
 
@@ -88,28 +92,39 @@ public class UserService {
     }
 
     public boolean updateUser(User updatedUser) {
-        // TODO
-        //check if valid
+        // check if valid
         if (!isValidUser(updatedUser)) {
             throw new InvalidRequestException("Invalid user data provided.");
         }
-        //check if exists? return false : execute update
-        //on false, throw invalid request exception, offer to register?
-        if (userDAO.findById(updatedUser.getId()) == null){
+        // check if exists? execute update : throw exception
+        // on false, throw invalid request exception, offer to register?
+        if (userDAO.findById(updatedUser.getId()) == null) {
             throw new InvalidRequestException("Invalid Request: Cannot update user not in database.");
         }
-        if (userDAO.save(updatedUser) == updatedUser){
+        if (userDAO.save(updatedUser) == updatedUser) {
             return true;
         }
         return false;
     }
 
-    public boolean deleteUser(User user) {
+    public boolean deleteUser(User deletedUser) {
         // TODO
-        //check if valid
-        //check if exists? return false : execute delete
-        //on false, throw invalid request exception?
-        return false;
+        // check if valid
+        if (!isValidUser(deletedUser)) {
+            throw new InvalidRequestException("Invalid user data provided.");
+        }
+        // check if exists? execute delete : throw exception
+        if (userDAO.findById(deletedUser.getId()) == null) {
+            throw new InvalidRequestException("Invalid Request: Cannot delete user not in database.");
+        }
+        userDAO.delete(deletedUser);
+        if (userDAO.findById(deletedUser.getId()) == null) {
+            return true;
+        } else {
+            //if SQL error? but that would throw exception and not return to this step? 
+            //may be unreachable code
+            throw new ResourcePersistenceException("User deletion was not persisted.");
+        }
     }
 
     private boolean isValidUser(User user) {
