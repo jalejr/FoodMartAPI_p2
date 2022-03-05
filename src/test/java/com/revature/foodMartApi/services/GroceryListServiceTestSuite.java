@@ -55,7 +55,7 @@ class GroceryListServiceTestSuite {
     }
 
     @Test
-    void findAllGroceryLists_givenData() {
+    void findAllGroceryLists_givenSomeData() {
         LinkedList<GroceryList> groceryLists = new LinkedList<>();
         groceryLists.add(new GroceryList());
         groceryLists.add(new GroceryList());
@@ -68,6 +68,19 @@ class GroceryListServiceTestSuite {
         groceryLists = (LinkedList<GroceryList>) sut.findAll();
 
         boolean actualResult = groceryLists.size() == 6;
+
+        assertTrue(actualResult);
+        verify(mockGroceryListDAO, times(1)).findAll();
+    }
+
+    @Test
+    void findAllGroceryLists_givenNoData() {
+        LinkedList<GroceryList> groceryLists = new LinkedList<>();
+
+        when(mockGroceryListDAO.findAll()).thenReturn(groceryLists);
+        groceryLists = (LinkedList<GroceryList>) sut.findAll();
+
+        boolean actualResult = groceryLists.size() == 0;
 
         assertTrue(actualResult);
         verify(mockGroceryListDAO, times(1)).findAll();
@@ -91,6 +104,23 @@ class GroceryListServiceTestSuite {
     }
 
     @Test
+    void findGroceryListById_givenBadData() {
+        LinkedList<GroceryList> groceryLists = new LinkedList<>();
+        groceryLists.add(new GroceryList(1L, new UserList(), new GroceryItem(), 2));
+        groceryLists.add(new GroceryList(2L, new UserList(), new GroceryItem(),  1));
+        groceryLists.add(new GroceryList(3L, new UserList(), new GroceryItem(),  4));
+        groceryLists.add(new GroceryList(4L, new UserList(), new GroceryItem(),  5));
+        groceryLists.add(new GroceryList(5L, new UserList(), new GroceryItem(),  2));
+        groceryLists.add(new GroceryList(6L, new UserList(), new GroceryItem(),  7));
+
+        when(mockGroceryListDAO.findById(8L)).thenReturn(null);
+        Optional<GroceryList> foundGroceryList = sut.findById(8L);
+
+        assertNull(foundGroceryList);
+        verify(mockGroceryListDAO, times(1)).findById(8L);
+    }
+
+    @Test
     void findGroceryListByUserListId_givenGoodData() {
         LinkedList<GroceryList> groceryLists = new LinkedList<>();
         groceryLists.add(new GroceryList(1L, new UserList(1), new GroceryItem(), 2));
@@ -108,17 +138,72 @@ class GroceryListServiceTestSuite {
     }
 
     @Test
-    void deleteGroceryList_givenGoodData() {
-//        GroceryList groceryList = new GroceryList(1L, new UserList(1), new GroceryItem(), 2);
-//        when(mockGroceryListDAO.findById(groceryList.getGroceryListId())).thenReturn(Optional.of(groceryList), null);
-//
-//        sut.delete(groceryList);
-//
-//        verify(mockGroceryListDAO, times(1)).delete(groceryList);
-//        verify(mockGroceryListDAO, times(2)).findById(groceryList.getGroceryListId());
+    void findGroceryListByUserListId_givenBadData() {
+        LinkedList<GroceryList> groceryLists = new LinkedList<>();
+        groceryLists.add(new GroceryList(1L, new UserList(1), new GroceryItem(), 2));
+        groceryLists.add(new GroceryList(2L, new UserList(1), new GroceryItem(),  1));
+        groceryLists.add(new GroceryList(3L, new UserList(1), new GroceryItem(),  4));
+        groceryLists.add(new GroceryList(4L, new UserList(3), new GroceryItem(),  5));
+        groceryLists.add(new GroceryList(5L, new UserList(1), new GroceryItem(),  2));
+        groceryLists.add(new GroceryList(6L, new UserList(1), new GroceryItem(),  7));
+
+        when(mockGroceryListDAO.findByUserListId(8)).thenReturn(null);
+        Optional<GroceryList> foundGroceryList = sut.findByUserListId(8);
+
+        assertNull(foundGroceryList);
+        verify(mockGroceryListDAO, times(1)).findByUserListId(8);
     }
 
     @Test
-    void deleteGroceryListById() {
+    void deleteGroceryList_givenGoodData() {
+        GroceryList groceryList = new GroceryList(1L, new UserList(1), new GroceryItem(), 2);
+        when(mockGroceryListDAO.existsById(groceryList.getGroceryListId())).thenReturn(true, false);
+
+        sut.delete(groceryList);
+
+        verify(mockGroceryListDAO, times(1)).delete(groceryList);
+        verify(mockGroceryListDAO, times(2)).existsById(groceryList.getGroceryListId());
+    }
+
+    @Test
+    void deleteGroceryList_givenBadData() {
+        InvalidRequestException thrown = assertThrows(InvalidRequestException.class, () -> {
+            GroceryList groceryList = new GroceryList(1L, new UserList(1), new GroceryItem(), 2);
+            when(mockGroceryListDAO.existsById(groceryList.getGroceryListId())).thenReturn(false, false);
+
+            sut.delete(new GroceryList(3L, new UserList(3), new GroceryItem(), 2));
+
+            verify(mockGroceryListDAO, times(1)).delete(new GroceryList(3L, new UserList(1), new GroceryItem(), 2));
+            verify(mockGroceryListDAO, times(1)).existsById(groceryList.getGroceryListId());
+        });
+
+        assertEquals("GroceryList does not exist in db...", thrown.getMessage());
+
+    }
+
+    @Test
+    void deleteGroceryListById_givenGoodData() {
+        GroceryList groceryList = new GroceryList(1L, new UserList(1), new GroceryItem(), 2);
+        when(mockGroceryListDAO.existsById(1L)).thenReturn(true, false);
+
+        sut.deleteById(1L);
+
+        verify(mockGroceryListDAO, times(1)).deleteById(1L);
+        verify(mockGroceryListDAO, times(2)).existsById(groceryList.getGroceryListId());
+    }
+
+    @Test
+    void deleteGroceryListById_givenBadData() {
+        InvalidRequestException thrown = assertThrows(InvalidRequestException.class, () -> {
+            GroceryList groceryList = new GroceryList(1L, new UserList(1), new GroceryItem(), 2);
+            when(mockGroceryListDAO.existsById(groceryList.getGroceryListId())).thenReturn(false, false);
+
+            sut.delete(new GroceryList(3L, new UserList(3), new GroceryItem(), 2));
+
+            verify(mockGroceryListDAO, times(1)).delete(new GroceryList(3L, new UserList(1), new GroceryItem(), 2));
+            verify(mockGroceryListDAO, times(1)).existsById(groceryList.getGroceryListId());
+        });
+
+        assertEquals("GroceryList does not exist in db...", thrown.getMessage());
     }
 }
