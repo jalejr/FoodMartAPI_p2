@@ -5,6 +5,7 @@ import com.revature.foodMartApi.exceptions.InvalidRequestException;
 import com.revature.foodMartApi.models.GroceryItem;
 import com.revature.foodMartApi.models.GroceryList;
 import com.revature.foodMartApi.models.UserList;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.endpoint.web.Link;
@@ -107,7 +108,14 @@ class GroceryListServiceTestSuite {
     }
 
     @Test
-    void deleteGroceryList() {
+    void deleteGroceryList_givenGoodData() {
+//        GroceryList groceryList = new GroceryList(1L, new UserList(1), new GroceryItem(), 2);
+//        when(mockGroceryListDAO.findById(groceryList.getGroceryListId())).thenReturn(Optional.of(groceryList), null);
+//
+//        sut.delete(groceryList);
+//
+//        verify(mockGroceryListDAO, times(1)).delete(groceryList);
+//        verify(mockGroceryListDAO, times(2)).findById(groceryList.getGroceryListId());
     }
 
     @Test
