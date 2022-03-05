@@ -27,23 +27,23 @@ public class GroceryListService {
         return groceryList;
     }
 
-    public List<GroceryList> findAllGroceryLists() {
+    public List<GroceryList> findAll() {
         return (List<GroceryList>) groceryListDAO.findAll();
     }
 
-    public Optional<GroceryList> findGroceryById(Long id) {
+    public Optional<GroceryList> findById(Long id) {
         return groceryListDAO.findById(id);
     }
 
-    public Optional<GroceryList> findGroceryListByUserListId(int id) { return groceryListDAO.findGroceryListByListId(id); }
+    public Optional<GroceryList> findByUserListId(int id) { return groceryListDAO.findByUserListId(id); }
 
-    public boolean deleteGroceryList(GroceryList groceryList) {
+    public boolean delete(GroceryList groceryList) {
         Long id = groceryList.getGroceryListId();
         groceryListDAO.deleteById(id);
         return !groceryListDAO.existsById(id);
     }
 
-    public boolean deleteGroceryListById(Long id) {
+    public boolean deleteById(Long id) {
         groceryListDAO.deleteById(id);
         return !groceryListDAO.existsById(id);
     }

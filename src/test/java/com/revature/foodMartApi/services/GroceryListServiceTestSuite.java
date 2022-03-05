@@ -2,7 +2,9 @@ package com.revature.foodMartApi.services;
 
 import com.revature.foodMartApi.daos.GroceryListDAO;
 import com.revature.foodMartApi.exceptions.InvalidRequestException;
+import com.revature.foodMartApi.models.GroceryItem;
 import com.revature.foodMartApi.models.GroceryList;
+import com.revature.foodMartApi.models.UserList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.endpoint.web.Link;
@@ -26,7 +28,7 @@ class GroceryListServiceTestSuite {
 
     @Test
     void test_addGroceryList_returnsTrue_givenValidData() {
-        GroceryList validGroceryList = new GroceryList(1L, 1);
+        GroceryList validGroceryList = new GroceryList(1L, new UserList(), new GroceryItem(), 1);
 
         when(mockGroceryListDAO.save(validGroceryList)).thenReturn(validGroceryList);
 
@@ -62,7 +64,7 @@ class GroceryListServiceTestSuite {
         groceryLists.add(new GroceryList());
 
         when(mockGroceryListDAO.findAll()).thenReturn(groceryLists);
-        groceryLists = (LinkedList<GroceryList>) sut.findAllGroceryLists();
+        groceryLists = (LinkedList<GroceryList>) sut.findAll();
 
         boolean actualResult = groceryLists.size() == 6;
 
@@ -71,24 +73,37 @@ class GroceryListServiceTestSuite {
     }
 
     @Test
-    void findGroceryById_givenGoodData() {
+    void findGroceryListById_givenGoodData() {
         LinkedList<GroceryList> groceryLists = new LinkedList<>();
-        groceryLists.add(new GroceryList(1L, 2));
-        groceryLists.add(new GroceryList(2L, 1));
-        groceryLists.add(new GroceryList(3L, 4));
-        groceryLists.add(new GroceryList(4L, 5));
-        groceryLists.add(new GroceryList(5L, 2));
-        groceryLists.add(new GroceryList(6L, 7));
+        groceryLists.add(new GroceryList(1L, new UserList(), new GroceryItem(), 2));
+        groceryLists.add(new GroceryList(2L, new UserList(), new GroceryItem(),  1));
+        groceryLists.add(new GroceryList(3L, new UserList(), new GroceryItem(),  4));
+        groceryLists.add(new GroceryList(4L, new UserList(), new GroceryItem(),  5));
+        groceryLists.add(new GroceryList(5L, new UserList(), new GroceryItem(),  2));
+        groceryLists.add(new GroceryList(6L, new UserList(), new GroceryItem(),  7));
 
         when(mockGroceryListDAO.findById(3L)).thenReturn(Optional.ofNullable(groceryLists.get(2)));
-        Optional<GroceryList> foundGroceryList = sut.findGroceryById(3L);
+        Optional<GroceryList> foundGroceryList = sut.findById(3L);
 
         assertNotNull(foundGroceryList);
         verify(mockGroceryListDAO, times(1)).findById(3L);
     }
 
     @Test
-    void findGroceryListByUserListId() {
+    void findGroceryListByUserListId_givenGoodData() {
+        LinkedList<GroceryList> groceryLists = new LinkedList<>();
+        groceryLists.add(new GroceryList(1L, new UserList(1), new GroceryItem(), 2));
+        groceryLists.add(new GroceryList(2L, new UserList(1), new GroceryItem(),  1));
+        groceryLists.add(new GroceryList(3L, new UserList(1), new GroceryItem(),  4));
+        groceryLists.add(new GroceryList(4L, new UserList(3), new GroceryItem(),  5));
+        groceryLists.add(new GroceryList(5L, new UserList(1), new GroceryItem(),  2));
+        groceryLists.add(new GroceryList(6L, new UserList(1), new GroceryItem(),  7));
+
+        when(mockGroceryListDAO.findByUserListId(3)).thenReturn(Optional.ofNullable(groceryLists.get(3)));
+        Optional<GroceryList> foundGroceryList = sut.findByUserListId(3);
+
+        assertNotNull(foundGroceryList);
+        verify(mockGroceryListDAO, times(1)).findByUserListId(3);
     }
 
     @Test

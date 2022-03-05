@@ -10,5 +10,5 @@ import java.util.Optional;
 @Repository
 public interface GroceryListDAO extends CrudRepository<GroceryList, Long> {
     @Query("FROM GroceryList i WHERE i.listId =: listId")
-    Optional<GroceryList> findGroceryListByListId(int listId);
+    Optional<GroceryList> findByUserListId(int listId);
 }

@@ -29,28 +29,28 @@ public class GroceryListServlet {
 
     @GetMapping("/id")
     public Optional<GroceryList> findGroceryListById(@RequestParam Long id) {
-        return groceryListService.findGroceryById(id);
+        return groceryListService.findById(id);
     }
 
     @GetMapping("/userList")
     public Optional<GroceryList> findGroceryListByUserListId(@RequestParam int id) {
-        return groceryListService.findGroceryListByUserListId(id);
+        return groceryListService.findByUserListId(id);
     }
 
     @GetMapping
     public List<GroceryList> findAllGroceryLists() {
-        return groceryListService.findAllGroceryLists();
+        return groceryListService.findAll();
     }
 
     @DeleteMapping
     @ResponseStatus(HttpStatus.OK)
     public void deleteGroceryList(@RequestBody GroceryList groceryList) {
-        groceryListService.deleteGroceryList(groceryList);
+        groceryListService.delete(groceryList);
     }
 
     @DeleteMapping("/id")
     @ResponseStatus(HttpStatus.OK)
     public void deleteGroceryListById(@RequestParam Long id) {
-        groceryListService.deleteGroceryListById(id);
+        groceryListService.deleteById(id);
     }
 }
