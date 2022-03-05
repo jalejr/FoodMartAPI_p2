@@ -1,12 +1,17 @@
 package com.revature.foodMartApi.models;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
@@ -28,10 +33,15 @@ public class User {
 	@Column(unique = true, nullable = false)
 	@Email
 	private String email;
-	@ManyToOne
+
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "role", nullable = false)
-	// @JsonIgnoreProperties()
+	@JsonIgnoreProperties(value = "roleId")
 	private Role role;
+
+	@OneToMany(mappedBy = "id", fetch = FetchType.EAGER)
+	@JsonIgnoreProperties(value = "user")
+	private List<UserList> userLists;
 
 	public User() {
 		super();
