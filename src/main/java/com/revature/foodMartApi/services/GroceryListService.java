@@ -38,12 +38,15 @@ public class GroceryListService {
     public Optional<GroceryList> findByUserListId(int id) { return groceryListDAO.findByUserListId(id); }
 
     public boolean delete(GroceryList groceryList) {
+        if(!isValidGroceryList(groceryList)) throw new InvalidRequestException("Invalid Grocery List provided...");
         Long id = groceryList.getGroceryListId();
-        groceryListDAO.deleteById(id);
+        if(!isExistingGroceryList(id)) throw new InvalidRequestException("GroceryList does not exist in db...");
+        groceryListDAO.delete(groceryList);
         return !groceryListDAO.existsById(id);
     }
 
     public boolean deleteById(Long id) {
+        if(!isExistingGroceryList(id)) throw new InvalidRequestException("GroceryList does not exist in db...");
         groceryListDAO.deleteById(id);
         return !groceryListDAO.existsById(id);
     }
@@ -54,5 +57,9 @@ public class GroceryListService {
         if(groceryList.getItemCount() <= 0) return false;
 
         return true;
+    }
+
+    private boolean isExistingGroceryList(Long id) {
+        return groceryListDAO.existsById(id);
     }
 }
