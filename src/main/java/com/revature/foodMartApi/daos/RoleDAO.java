@@ -18,54 +18,54 @@ import com.revature.foodMartApi.models.Role;
  *
  */
 @Repository
-//public interface RoleDAO extends CrudRepository<Role, Integer>{
-//	
-//	@Query("from roles r where r.roleId = :roleId")
-//	Role findRoleById(int roleId);
-//}
-public class RoleDAO {
-	private SessionFactory sessionFactory;
+public interface RoleDAO extends CrudRepository<Role, Integer>{
 	
-	public RoleDAO(SessionFactory sessionFactory) {
-		super();
-		this.sessionFactory = sessionFactory;
-	}
-	public List<Role> findAll(){
-		try (Session session = sessionFactory.openSession()){ 
-			String sqlSyntax = " FROM Role S ";
-			List<Role> roles = session.createQuery(sqlSyntax).getResultList();
-			return roles;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}	
-	public Role findRoleById(int id) 
-	{
-		
-		try (Session session = sessionFactory.openSession()) {
-			return session.get(Role.class, id);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	public Role save(Role role) {
-		try (Session session = sessionFactory.openSession()) {
-			session.merge(role);
-			return role;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	public void deleteById(int id) {
-		try (Session session = sessionFactory.openSession()) {
-			session.remove(findRoleById(id));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-	}
+	@Query("from roles r where r.roleId = :roleId")
+	Role findRoleById(int roleId);
 }
+//public class RoleDAO {
+//	private SessionFactory sessionFactory;
+//	
+//	public RoleDAO(SessionFactory sessionFactory) {
+//		super();
+//		this.sessionFactory = sessionFactory;
+//	}
+//	public List<Role> findAll(){
+//		try (Session session = sessionFactory.openSession()){ 
+//			String sqlSyntax = " FROM Role S ";
+//			List<Role> roles = session.createQuery(sqlSyntax).getResultList();
+//			return roles;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return null;
+//		}
+//	}	
+//	public Role findRoleById(int id) 
+//	{
+//		
+//		try (Session session = sessionFactory.openSession()) {
+//			return session.get(Role.class, id);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return null;
+//		}
+//	}
+//
+//	public Role save(Role role) {
+//		try (Session session = sessionFactory.openSession()) {
+//			session.merge(role);
+//			return role;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return null;
+//		}
+//	}
+//	public void deleteById(int id) {
+//		try (Session session = sessionFactory.openSession()) {
+//			session.remove(findRoleById(id));
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//	}
+//}

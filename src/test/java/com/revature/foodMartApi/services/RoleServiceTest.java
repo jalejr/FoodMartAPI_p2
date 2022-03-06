@@ -1,6 +1,9 @@
 package com.revature.foodMartApi.services;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,8 +29,23 @@ class RoleServiceTest {
 	@Test
 	public void when_create_role() {
 		Role role = roleService.createRole("test role");
-//		assertEquals(roles, 0);
 		assertNotNull(role);
+	}
+	
+	@Test
+	public void when_update_role() {
+		Role role = roleService.findRoleById(1);
+		role.setDescription("update role");
+		Role roleUpdated = roleService.updateRole(role);
+		assertEquals(roleUpdated.getDescription(), "updated role");
+//		assertNotNull(roleUpdated);
+		
+	}
+	
+	@Test
+	public void when_get_All_roles() {
+		List<Role> roles = roleService.getAllRoles();
+		assertNotNull(roles);
 	}
 
 }

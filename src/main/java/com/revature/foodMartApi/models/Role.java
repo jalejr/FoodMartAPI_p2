@@ -3,8 +3,6 @@
  */
 package com.revature.foodMartApi.models;
 
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,21 +33,21 @@ public class Role {
 	@Column(unique = true, nullable = false)
 	private String description;
 
-//	public Role() {
-//		super();
-//		// TODO Auto-generated constructor stub
-//	}
-//
-//	public Role(String description) {
-//		super();
-//		this.description = description;
-//	}
-//
-//	public Role(int id, String description) {
-//		super();
-//		this.roleId = id;
-//		this.description = description;
-//	}
+	public Role() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Role(String description) {
+		super();
+		this.description = description;
+	}
+
+	public Role(int id, String description) {
+		super();
+		this.roleId = id;
+		this.description = description;
+	}
 
 	public int getId() {
 		return roleId;
@@ -88,7 +86,5 @@ public class Role {
 	public String toString() {
 		return "Role [id=" + roleId + ", description=" + description + "]";
 	}
-	
-	
 
 }

@@ -46,8 +46,7 @@ public class RoleService {
 	}
 	
 	public List<Role> getAllRoles() {
-		return roleDAO.findAll();
-
+		return (List<Role>) roleDAO.findAll();
 	}
 
 	public Role findRoleById(int id) {
