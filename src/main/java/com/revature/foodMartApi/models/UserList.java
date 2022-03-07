@@ -25,9 +25,9 @@ public class UserList {
 	
 	//creating user id foreign key not null
 	
-//	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//	@JoinColumn(name = "user_id", nullable = false)
-//	private User user;
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_id", nullable = false)
+	private User user;
 	
 	
 	//constructors
@@ -36,10 +36,10 @@ public class UserList {
 	}
 
 
-	public UserList(int id /*User user*/) {
+	public UserList(int id, User user) {
 		super();
 		this.id = id;
-		//this.user = user;
+		this.user = user;
 	}
 
 	//getters and setters
@@ -51,13 +51,13 @@ public class UserList {
 		this.id = id;
 	}
 
-//	public User getUser() {
-//		return user;
-//	}
+	public User getUser() {
+		return user;
+	}
 
-//	public void setUser(User user) {
-//		this.user = user;
-//	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	//to string auto generated 
 	@Override
