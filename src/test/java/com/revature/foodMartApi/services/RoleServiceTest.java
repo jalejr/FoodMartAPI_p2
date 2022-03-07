@@ -2,13 +2,13 @@ package com.revature.foodMartApi.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.mock;
 
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.revature.foodMartApi.daos.RoleDAO;
@@ -16,13 +16,13 @@ import com.revature.foodMartApi.models.Role;
 
 @ExtendWith(MockitoExtension.class)
 class RoleServiceTest {
-	@Mock
-	private RoleDAO roleDAO;
-	
-	RoleService roleService;
+//	@Mock
+	private RoleDAO roleDAO;	
+	private RoleService roleService;
 	
 	@BeforeEach
 	void testPrep() {
+		roleDAO = mock(RoleDAO.class);
 		roleService = new RoleService(roleDAO);
 	}
 	
