@@ -36,9 +36,9 @@ public class GroceryItemService {
 		return null;
 	}
 	
-	public GroceryItem findByInventoryCount() {
-		return null;
-	}
+//	public String findByName(String itemName) {
+//		return  groceryItemDAO.findByName(itemName);
+//	}
 
 	public boolean isValidItem(GroceryItem item) {
 		// TODO add more validation constraints
