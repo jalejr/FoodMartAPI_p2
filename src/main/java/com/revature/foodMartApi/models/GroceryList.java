@@ -12,13 +12,13 @@ public class GroceryList {
     @Column(name = "grocery_list_id", nullable = false)
     private Long groceryListId;
 
-//    @JoinColumn(name = "list_id", nullable = false)
-//    @ManyToOne(cascade = CascadeType.ALL, optional = false)
-//    private UserList list_id;
-//
-//    @JoinColumn(name = "item_id", nullable = false)
-//    @ManyToOne(cascade = CascadeType.ALL, optional = false)
-//    private GroceryItem item_id;
+    @JoinColumn(name = "list_id", nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    private UserList listId;
+
+    @JoinColumn(name = "item_id", nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    private GroceryItem itemId;
 
     @Column(name = "item_count", nullable = false)
     private int itemCount;
@@ -26,18 +26,12 @@ public class GroceryList {
     public GroceryList() {
     }
 
-    //TODO remove when this is no longer relevant aka when other models inserted
-    public GroceryList(Long GroceryListId, int itemCount) {
-        this.groceryListId = GroceryListId;
+    public GroceryList(Long groceryListId, UserList listId, GroceryItem itemId, int itemCount) {
+        this.groceryListId = groceryListId;
+        this.listId = listId;
+        this.itemId = itemId;
         this.itemCount = itemCount;
     }
-
-    //    public GroceryList(Long grocery_list_id, UserList list_id, GroceryItem item_id, int item_count) {
-//        this.grocery_list_id = grocery_list_id;
-//        this.list_id = list_id;
-//        this.item_id = item_id;
-//        this.item_count = item_count;
-//    }
 
     public Long getGroceryListId() {
         return groceryListId;
@@ -47,21 +41,21 @@ public class GroceryList {
         this.groceryListId = grocery_list_id;
     }
 
-//    public UserList getList_id() {
-//        return list_id;
-//    }
-//
-//    public void setList_id(UserList list_id) {
-//        this.list_id = list_id;
-//    }
-//
-//    public GroceryItem getItem_id() {
-//        return item_id;
-//    }
-//
-//    public void setItem_id(GroceryItem item_id) {
-//        this.item_id = item_id;
-//    }
+    public UserList getListId() {
+        return listId;
+    }
+
+    public void setListId(UserList list_id) {
+        this.listId = list_id;
+    }
+
+    public GroceryItem getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(GroceryItem item_id) {
+        this.itemId = item_id;
+    }
 
     public int getItemCount() {
         return itemCount;
@@ -74,46 +68,23 @@ public class GroceryList {
     @Override
     public String toString() {
         return "GroceryList{" +
-                "grocery_list_id=" + groceryListId +
-                ", item_count=" + itemCount +
+                "groceryListId=" + groceryListId +
+                ", listId=" + listId +
+                ", itemId=" + itemId +
+                ", itemCount=" + itemCount +
                 '}';
     }
 
-    //TODO REMOVE LATER
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GroceryList that = (GroceryList) o;
-        return itemCount == that.itemCount && groceryListId.equals(that.groceryListId);
+        return itemCount == that.itemCount && groceryListId.equals(that.groceryListId) && listId.equals(that.listId) && itemId.equals(that.itemId);
     }
 
-    //TODO REMOVE LATER
     @Override
     public int hashCode() {
-        return Objects.hash(groceryListId, itemCount);
+        return Objects.hash(groceryListId, listId, itemId, itemCount);
     }
-
-    //    @Override
-//    public String toString() {
-//        return "GroceryList{" +
-//                "grocery_list_id=" + grocery_list_id +
-//                ", list_id=" + list_id +
-//                ", item_id=" + item_id +
-//                ", item_count=" + item_count +
-//                '}';
-//    }
-//
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        GroceryList that = (GroceryList) o;
-//        return item_count == that.item_count && grocery_list_id.equals(that.grocery_list_id) && list_id.equals(that.list_id) && item_id.equals(that.item_id);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(grocery_list_id, list_id, item_id, item_count);
-//    }
 }
