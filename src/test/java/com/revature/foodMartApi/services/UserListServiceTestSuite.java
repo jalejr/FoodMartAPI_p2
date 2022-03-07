@@ -23,19 +23,70 @@ public class UserListServiceTestSuite {
 	
 	
 	@BeforeEach
-	public void testPrep() {
+	void setUp() throws Exception {
 		
 		mockUserListDAO = mock(UserListDAO.class);
 		sut = new UserListService(mockUserListDAO);
 	}
 	
 	@Test
-	void test_adduserList_givenGoodData() {
+	void test_adduserList_goodData() {
+		UserList userList = new UserList(1, new User());
+		assertNotNull(userList);
+	}
+	
+	@Test
+	void test_adduserList_badData() {
 		
 	}
 	
 	@Test
-	void test_adduserList_givenBadData() {
+	void findUserListById_goodData() {
+		
+	}
+	
+	@Test
+	void findUserListById_badData() {
+		
+	}
+	
+	@Test
+	void findUserListByUserId_goodData() {
+		
+	}
+	
+	@Test
+	void findUserListByUserId_badData() {
+		
+	}
+	
+	@Test
+	void findAllUserLists_goodData() {
+		
+	}
+	
+	@Test
+	void findAllUserLists_badData() {
+		
+	}
+	
+	@Test
+	void deleteUserList_goodData() {
+		
+	}
+	
+	@Test
+	void deleteUserList_badData() {
+		
+	}
+	
+	@Test
+	void deleteUserListById_goodData() {
+		
+	}
+	
+	@Test
+	void deleteUserListById_badData() {
 		
 	}
 }
