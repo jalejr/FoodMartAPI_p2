@@ -38,16 +38,19 @@ public class UserServlet {
     }
 
     @GetMapping
+    @ResponseBody
     public List<User> findAllUsers() {
         return userService.findAllUsers();
     }
 
     @GetMapping("/id")
+    @ResponseBody
     public User findUserById(@RequestParam Integer id) {
         return userService.findUserById(id);
     }
 
     @GetMapping("/username")
+    @ResponseBody
     public User findUserByUsername(@RequestParam String username) {
         return userService.findUserByUsername(username);
     }
