@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.revature.foodMartApi.servlets;
+package com.revature.foodMartApi.web.servlets;
 
 import java.util.List;
 
