@@ -31,7 +31,8 @@ public class UserListServiceTestSuite {
 	
 	@Test
 	void test_adduserList_goodData() {
-		
+		UserList userList = new UserList(1, new User());
+		assertNotNull(userList);
 	}
 	
 	@Test
