@@ -14,7 +14,7 @@ public interface UserDAO extends CrudRepository<User, Integer>{
     User findByUsername(String username);
     User findByEmail(String email);
 
-    @Query("select * from User u where u.username = :username and u.password = :password")
-    User findUserByUsernameAndPassword(String username, String password);
+    // @Query("select * from User u where u.username = :username and u.password = :password")
+    // User findUserByUsernameAndPassword(String username, String password);
 
 }
