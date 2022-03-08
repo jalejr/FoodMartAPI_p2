@@ -20,7 +20,7 @@ import com.revature.foodMartApi.models.Role;
 @Repository
 public interface RoleDAO extends CrudRepository<Role, Integer>{
 	
-	@Query("FROM Role S r where r.roleId = :roleId")
+	@Query("FROM Role S where S.roleId = :roleId")
 	Role findRoleById(int roleId);
 }
 //public class RoleDAO {

@@ -4,14 +4,14 @@ server:
 spring:
   datasource:
 #    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-#    url: jdbc:sqlserver://;serverName=azure-server-p1-awaab.database.windows.net;databaseName=azure-db-p1-awaab;encrypt=true
-#    username: azure-sql-admin-awaab
-#    password: java-react-p1
+    url: jdbc:sqlserver://;serverName=azure-server-p1-awaab.database.windows.net;databaseName=azure-db-p1-awaab;encrypt=true
+    username: azure-sql-admin-awaab
+    password: java-react-p1
     
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    url: jdbc:sqlserver://;serverName=azure-server-demo-robles.database.windows.net;databaseName=azure-db-dem-robles;encrypt=true
-    username: ${MART_USERNAME}
-    password: ${MART_PASSWORD}
+#    url: jdbc:sqlserver://;serverName=azure-server-demo-robles.database.windows.net;databaseName=azure-db-dem-robles;encrypt=true
+#    username: ${MART_USERNAME}
+#    password: ${MART_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: create
