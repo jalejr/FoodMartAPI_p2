@@ -10,7 +10,12 @@ import com.revature.foodMartApi.daos.UserListDAO;
 import com.revature.foodMartApi.exceptions.InvalidRequestException;
 
 import com.revature.foodMartApi.models.UserList;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
+@Service
+@Transactional
 public class UserListService {
 
 	private final UserListDAO userListDAO;

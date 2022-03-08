@@ -49,4 +49,9 @@ public class GroceryItemService {
 		}
 	}
 
+	public boolean deleteGroceryItem(GroceryItem validItem) {
+		int id = validItem.getItemId();
+		groceryItemDAO.delete(validItem);
+		return !groceryItemDAO.existsById(id);
+	}
 }

@@ -13,9 +13,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserListDAO extends CrudRepository<UserList, Integer> {
 
-	@Query("FROM userlist i WHERE i.userId =: userId")
-   
-
+	@Query("FROM UserList i WHERE i.id =: userId")
 	Optional<UserList> findByUserId(int userId);
 	
 }

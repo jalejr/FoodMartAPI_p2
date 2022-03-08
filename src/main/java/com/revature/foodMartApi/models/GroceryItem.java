@@ -27,7 +27,13 @@ public class GroceryItem {
 
 	public GroceryItem() {
 		super();
-		// TODO Auto-generated constructor stub
+	}
+
+	public GroceryItem(int itemId, String description, double itemPrice, int inventoryCount) {
+		this.itemId = itemId;
+		this.description = description;
+		this.itemPrice = itemPrice;
+		this.inventoryCount = inventoryCount;
 	}
 
 	public int getItemId() {
