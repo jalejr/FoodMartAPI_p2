@@ -1,8 +1,12 @@
 package com.revature.foodMartApi.web.servlets;
 
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,6 +48,25 @@ public class UserListServlet {
 		
 	}
 	
+	@GetMapping("/byUserId")
+	@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+	public Optional<UserList> findUserListByUserId(@RequestParam int id){
+		return userListService.findUserListByUserId(id);
+	}
+	
+	@GetMapping
+	@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+	public List<UserList> findAll(){
+		return (List<UserList>)userListService.findAll();
+	}
+	
+	@DeleteMapping("/byId")
+	@ResponseStatus(HttpStatus.OK)
+	public void deleteUserListById(@RequestParam int id) {
+		userListService.deletById(id);
+	}
 	
 	
 	
