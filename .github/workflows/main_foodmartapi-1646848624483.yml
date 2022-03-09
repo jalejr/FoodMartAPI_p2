@@ -8,6 +8,10 @@ on:
     branches:
       - main
   workflow_dispatch:
+  
+env:
+  MART_USERNAME: ${{secrets.MART_USERNAME}}
+  MART_PASSWORD: ${{secrets.MART_PASSWORD}}
 
 jobs:
   build:
