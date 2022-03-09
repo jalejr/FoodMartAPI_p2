@@ -52,8 +52,8 @@ public class GroceryListService {
     }
 
     private boolean isValidGroceryList(GroceryList groceryList) {
+        //TODO add the rest of them except id. Id doesn't get set before saving
         if(groceryList == null) return false;
-        if(groceryList.getGroceryListId() == null) return false;
         if(groceryList.getItemCount() <= 0) return false;
 
         return true;

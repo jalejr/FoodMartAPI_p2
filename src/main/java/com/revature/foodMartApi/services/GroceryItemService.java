@@ -19,9 +19,8 @@ public class GroceryItemService {
 	}
 
 	@Transactional
-	public GroceryItem newItem(GroceryItem item) {
+	public GroceryItem addGroceryItem(GroceryItem item) {
 		if (!isValidItem(item)) {
-// TODO!			throw new InvalidRequestException("Invalid item provided.");
 		}
 		groceryItemDAO.save(item);
 		return item;
@@ -32,7 +31,7 @@ public class GroceryItemService {
 		return null;
 	}
 
-	public GroceryItem findItemById() {
+	public GroceryItem findItemById(int id) {
 		return null;
 	}
 	

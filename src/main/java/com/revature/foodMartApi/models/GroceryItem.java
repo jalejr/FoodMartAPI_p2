@@ -67,7 +67,4 @@ public class GroceryItem {
 	public void setInventory_count(int inventory_count) {
 		this.inventoryCount = inventory_count;
 	}
-	
-	
-
 }

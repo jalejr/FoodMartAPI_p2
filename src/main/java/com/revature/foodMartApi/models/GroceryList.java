@@ -1,5 +1,7 @@
 package com.revature.foodMartApi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -13,11 +15,13 @@ public class GroceryList {
     private Long groceryListId;
 
     @JoinColumn(name = "list_id", nullable = false)
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, optional = false)
+    @JsonIgnoreProperties({"user"})
     private UserList listId;
 
     @JoinColumn(name = "item_id", nullable = false)
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, optional = false)
+    @JsonIgnoreProperties({"description", "itemPrice", "inventory_count"})
     private GroceryItem itemId;
 
     @Column(name = "item_count", nullable = false)

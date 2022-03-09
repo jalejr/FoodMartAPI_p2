@@ -1,7 +1,6 @@
 package com.revature.foodMartApi.services;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.booleanThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -16,9 +15,8 @@ import org.junit.jupiter.api.Test;
 import com.revature.foodMartApi.exceptions.InvalidRequestException;
 import com.revature.foodMartApi.models.*;
 import com.revature.foodMartApi.daos.GroceryItemDAO;
-import com.revature.foodMartApi.services.GroceryItemService;
 
-class ItemServiceTest {
+class GroceryItemServiceTestSuite {
 	GroceryItemService sut;
 	GroceryItemDAO mockGroceryItemDAO;
 
@@ -34,7 +32,7 @@ class ItemServiceTest {
 
 		when(mockGroceryItemDAO.save(validItem)).thenReturn(validItem);
 
-		boolean actualResult = !(sut.newItem(validItem) == null);
+		boolean actualResult = !(sut.addGroceryItem(validItem) == null);
 
 		Assertions.assertTrue(actualResult);
 		verify(mockGroceryItemDAO, times(1)).save(validItem);
@@ -46,7 +44,7 @@ class ItemServiceTest {
 			GroceryItem validItem = null;
 			when(mockGroceryItemDAO.save(validItem)).thenReturn(null);
 
-			boolean actualResult = !(sut.newItem(validItem) == null);
+			boolean actualResult = !(sut.addGroceryItem(validItem) == null);
 
 			Assertions.assertFalse(actualResult);
 			verify(mockGroceryItemDAO, times(1)).save(validItem);
