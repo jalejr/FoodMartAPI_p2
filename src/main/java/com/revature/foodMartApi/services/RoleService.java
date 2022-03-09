@@ -29,9 +29,7 @@ public class RoleService {
 	}
 	
 	@Transactional
-	public Role createRole(String description) {
-		Role role = new Role();
-		role.setDescription(description);
+	public Role createRole(Role role) {
 		return roleDAO.save(role);
 	}
 	
