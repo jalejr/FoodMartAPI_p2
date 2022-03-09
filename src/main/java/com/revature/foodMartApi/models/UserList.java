@@ -1,5 +1,7 @@
 package com.revature.foodMartApi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,8 +27,9 @@ public class UserList {
 	
 	//creating user id foreign key not null
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "user_id", nullable = false)
+	@JsonIgnoreProperties({"username", "password", "email", "role"})
 	private User user;
 	
 	
