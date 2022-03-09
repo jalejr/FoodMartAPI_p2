@@ -31,7 +31,7 @@ public class Role {
 	private int roleId;
 
 	@Column(unique = true, nullable = false)
-	private String description;
+	private String role_description;
 
 	public Role() {
 		super();
@@ -40,13 +40,13 @@ public class Role {
 
 	public Role(String description) {
 		super();
-		this.description = description;
+		this.role_description = description;
 	}
 
 	public Role(int id, String description) {
 		super();
 		this.roleId = id;
-		this.description = description;
+		this.role_description = description;
 	}
 
 	public int getId() {
@@ -58,16 +58,16 @@ public class Role {
 	}
 
 	public String getDescription() {
-		return description;
+		return role_description;
 	}
 
 	public void setDescription(String description) {
-		this.description = description;
+		this.role_description = description;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(description, roleId);
+		return Objects.hash(role_description, roleId);
 	}
 
 	@Override
@@ -79,12 +79,12 @@ public class Role {
 		if (getClass() != obj.getClass())
 			return false;
 		Role other = (Role) obj;
-		return Objects.equals(description, other.description) && roleId == other.roleId;
+		return Objects.equals(role_description, other.role_description) && roleId == other.roleId;
 	}
 
 	@Override
 	public String toString() {
-		return "Role [id=" + roleId + ", description=" + description + "]";
+		return "Role [id=" + roleId + ", description=" + role_description + "]";
 	}
 
 }
