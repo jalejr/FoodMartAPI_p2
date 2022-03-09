@@ -3,12 +3,15 @@
  */
 package com.revature.foodMartApi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -30,8 +33,11 @@ public class Role {
 	@Column(name = "role_id")
 	private int roleId;
 
-	@Column(unique = true, nullable = false)
+	@Column(name = "role_description",unique = true, nullable = false)
 	private String description;
+
+	@OneToMany(mappedBy = "role", cascade= CascadeType.ALL)
+	private List<User> users;
 
 	public Role() {
 		super();

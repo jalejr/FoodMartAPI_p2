@@ -26,7 +26,6 @@ public class User {
 	@Column(name = "user_id", nullable = false)
 	private int id;
 	@Column(unique = true, nullable = false)
-	@Min(3)
 	private String username;
 	@Column(nullable = false)
 	private String password;
@@ -34,9 +33,9 @@ public class User {
 	@Email
 	private String email;
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "role", nullable = false)
-	@JsonIgnoreProperties(value = "roleId")
+	@JsonIgnoreProperties(value = "description")
 	private Role role;
 
 	@OneToMany(mappedBy = "id", fetch = FetchType.EAGER)
