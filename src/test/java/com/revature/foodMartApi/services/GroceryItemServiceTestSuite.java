@@ -41,7 +41,7 @@ class GroceryItemServiceTestSuite {
 =======
 	@Test
 	void test_newItem_returnsTrue_givenValidItem() {
-		GroceryItem validItem = new GroceryItem(1, "cheese", 2.99, 5);
+		GroceryItem validItem = new GroceryItem(1, "cheese", "shredded cheddar", 2.99, 5);
 
 		when(mockGroceryItemDAO.save(validItem)).thenReturn(validItem);
 
@@ -85,8 +85,8 @@ class GroceryItemServiceTestSuite {
 	@Test
 	void test_findAllItems_returnsTrue_givenList() {
 		LinkedList<GroceryItem> groceryItemList = new LinkedList<>();
-		groceryItemList.add(new GroceryItem(3, "cheese1", 3.99, 1));
-		groceryItemList.add(new GroceryItem(2, "lettuce", 2.49, 3));
+		groceryItemList.add(new GroceryItem(3, "cheese1","shredded cheddar", 3.99, 1));
+		groceryItemList.add(new GroceryItem(2, "lettuce","tasty greens", 2.49, 3));
 
 		when(mockGroceryItemDAO.findAll()).thenReturn(groceryItemList);
 		groceryItemList = (LinkedList<GroceryItem>) sut.findAllItems();
@@ -139,7 +139,7 @@ class GroceryItemServiceTestSuite {
 =======
 	@Test
 	void test_deleteGroceryItem_returnsTrue_givenValidItem() {
-		GroceryItem validItem = new GroceryItem(1, "cheese", 2.99, 5);
+		GroceryItem validItem = new GroceryItem(1, "cheese","cheesy", 2.99, 5);
 
 		when(mockGroceryItemDAO.save(validItem)).thenReturn(validItem);
 		boolean actualResult = !(sut.deleteGroceryItem(validItem) == false);

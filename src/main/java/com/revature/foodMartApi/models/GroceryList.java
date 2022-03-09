@@ -21,7 +21,7 @@ public class GroceryList {
 
     @JoinColumn(name = "item_id", nullable = false)
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, optional = false)
-    @JsonIgnoreProperties({"description", "itemPrice", "inventory_count"})
+    @JsonIgnoreProperties({"itemName","description", "itemPrice", "inventoryCount"})
     private GroceryItem itemId;
 
     @Column(name = "item_count", nullable = false)

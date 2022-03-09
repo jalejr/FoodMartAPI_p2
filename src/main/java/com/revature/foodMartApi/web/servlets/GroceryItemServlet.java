@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -24,10 +25,13 @@ public class GroceryItemServlet {
         return groceryItemService.addGroceryItem(groceryItem);
     }
 
-//    @GetMapping("/id")
-//    public Optional<GroceryItem> findGroceryItemById(@RequestParam int id) {
-//        return groceryItemService.findItemById(id);
-//    }
+    @GetMapping
+    public List<GroceryItem> findAllGroceryItems() { return groceryItemService.findAllItems(); }
+
+    @GetMapping("/id")
+    public Optional<GroceryItem> findGroceryItemById(@RequestParam int id) {
+        return groceryItemService.findItemById(id);
+    }
 
     @DeleteMapping
     @ResponseStatus(HttpStatus.OK)
