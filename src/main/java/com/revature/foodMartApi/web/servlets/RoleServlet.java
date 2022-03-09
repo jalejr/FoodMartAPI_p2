@@ -42,8 +42,8 @@ public class RoleServlet {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	@ResponseBody
-	public Role createRole(@RequestBody String description) {		
-		return roleService.createRole(description);
+	public Role createRole(@RequestBody Role role) {
+		return roleService.createRole(role);
 	}
 	
 	@GetMapping("/byId")
