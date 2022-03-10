@@ -32,7 +32,7 @@ public class UserListServlet {
 		this.userListService = userListService;
 	}
 	
-	@PostMapping
+	@PostMapping(value = "addUserlist")
 	@ResponseStatus(HttpStatus.CREATED)
 	@ResponseBody
 	public UserList addUserList(@RequestBody UserList userList) {
