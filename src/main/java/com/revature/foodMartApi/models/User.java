@@ -20,6 +20,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+/**
+ * Model meant to represent a user
+ */
 @Entity
 @Table(name = "app_users")
 public class User {

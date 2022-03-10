@@ -14,6 +14,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
+/**
+ * Model meant to represent a List a User owns. It doesn't hold data itself but the ListId is a foreign key in
+ * groceryList that can be used to find what grocery items are set on the list.
+ */
 //creating userlist table
 @Entity
 @Table(name= "userlist")

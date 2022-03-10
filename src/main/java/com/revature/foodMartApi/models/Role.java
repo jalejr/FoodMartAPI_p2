@@ -19,7 +19,7 @@ import javax.persistence.Table;
 
 /**
  * @author Awaab
- * @since
+ * Model meant to represent a role that a user can have.
  *
  */
 //@EntityScan

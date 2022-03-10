@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * Model for GroceryLists meant to represent an GroceryItem that is currently in a UserList.
+ */
 @Entity
 @Table(name="grocery_lists")
 public class GroceryList {
@@ -16,12 +19,12 @@ public class GroceryList {
 
     @JoinColumn(name = "list_id", nullable = false)
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, optional = false)
-    @JsonIgnoreProperties({"user"})
+    //@JsonIgnoreProperties({"user"})
     private UserList listId;
 
     @JoinColumn(name = "item_id", nullable = false)
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, optional = false)
-    @JsonIgnoreProperties({"description", "itemPrice", "inventory_count"})
+    //@JsonIgnoreProperties({"itemName","description", "itemPrice", "inventoryCount"})
     private GroceryItem itemId;
 
     @Column(name = "item_count", nullable = false)

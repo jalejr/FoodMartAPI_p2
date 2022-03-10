@@ -15,7 +15,7 @@ import com.revature.foodMartApi.models.Role;
 
 /**
  * @author Awaab
- *
+ *RoleDAO implemented using CrudRepository. Custom impl but never used.
  */
 @Repository
 public interface RoleDAO extends CrudRepository<Role, Integer>{
