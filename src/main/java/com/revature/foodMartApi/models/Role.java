@@ -33,13 +33,9 @@ public class Role {
 	@Column(name = "role_id")
 	private int roleId;
 
-<<<<<<< HEAD
-	@Column(unique = true, nullable = false)
-	private String role_description;
-=======
+
 	@Column(name = "role_description",unique = true, nullable = false)
 	private String description;
->>>>>>> fd82afeb366a1af81e46af47408272a0728f9835
 
 	@OneToMany(mappedBy = "role", cascade= CascadeType.ALL)
 	private List<User> users;
@@ -51,13 +47,13 @@ public class Role {
 
 	public Role(String description) {
 		super();
-		this.role_description = description;
+		this.description = description;
 	}
 
 	public Role(int id, String description) {
 		super();
 		this.roleId = id;
-		this.role_description = description;
+		this.description = description;
 	}
 
 	public int getId() {
@@ -69,16 +65,16 @@ public class Role {
 	}
 
 	public String getDescription() {
-		return role_description;
+		return description;
 	}
 
 	public void setDescription(String description) {
-		this.role_description = description;
+		this.description = description;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(role_description, roleId);
+		return Objects.hash(description, roleId);
 	}
 
 	@Override
@@ -90,12 +86,12 @@ public class Role {
 		if (getClass() != obj.getClass())
 			return false;
 		Role other = (Role) obj;
-		return Objects.equals(role_description, other.role_description) && roleId == other.roleId;
+		return Objects.equals(description, other.description) && roleId == other.roleId;
 	}
 
 	@Override
 	public String toString() {
-		return "Role [id=" + roleId + ", description=" + role_description + "]";
+		return "Role [id=" + roleId + ", description=" + description + "]";
 	}
 
 }

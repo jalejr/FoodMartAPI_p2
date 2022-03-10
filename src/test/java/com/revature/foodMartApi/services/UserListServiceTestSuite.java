@@ -22,21 +22,13 @@ public class UserListServiceTestSuite {
 	UserListDAO mockUserListDAO;
 	
 	
-<<<<<<< HEAD
-//	@BeforeEach
-//	public void testPrep() {
-//		
-//		mockUserListDAO = mock(UserListDAO.class);
-//		sut = new UserListService(mockUserListDAO);
-//	}
-=======
+
 	@BeforeEach
 	void setUp() throws Exception {
 		
 		mockUserListDAO = mock(UserListDAO.class);
 		sut = new UserListService(mockUserListDAO);
 	}
->>>>>>> fd82afeb366a1af81e46af47408272a0728f9835
 	
 	@Test
 	void test_adduserList_goodData() {
