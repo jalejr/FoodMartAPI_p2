@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * Model for GroceryLists meant to represent an GroceryItem that is currently in a UserList.
+ */
 @Entity
 @Table(name="grocery_lists")
 public class GroceryList {

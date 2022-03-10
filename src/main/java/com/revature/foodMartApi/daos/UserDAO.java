@@ -8,6 +8,9 @@ import java.util.Optional;
 
 import com.revature.foodMartApi.models.User;
 
+/**
+ * UserDAO impl through crudrepository. Has some custom Impl for findByUser and findByEmail
+ */
 @Repository
 public interface UserDAO extends CrudRepository<User, Integer>{
 

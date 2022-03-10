@@ -6,6 +6,9 @@ import org.springframework.data.repository.CrudRepository;
 import com.revature.foodMartApi.models.GroceryItem;
 import org.springframework.stereotype.Repository;
 
+/**
+ * GroceryItem DAO which is implemented through CrudRepository
+ */
 @Repository
 public interface GroceryItemDAO extends CrudRepository<GroceryItem, Integer>{
 

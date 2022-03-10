@@ -9,6 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Model for GroceryItems meant to represent any item held by a grocery store.
+ */
 @Entity
 @Table(name="item")
 public class GroceryItem {
