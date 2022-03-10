@@ -35,7 +35,7 @@ public class GroceryListService {
         return groceryListDAO.findById(id);
     }
 
-    public Optional<GroceryList> findByUserListId(int id) { return groceryListDAO.findByUserListId(id); }
+    public List<GroceryList> findByUserListId(int id) { return groceryListDAO.findByUserListId(id); }
 
     public boolean delete(GroceryList groceryList) {
         if(!isValidGroceryList(groceryList)) throw new InvalidRequestException("Invalid Grocery List provided...");

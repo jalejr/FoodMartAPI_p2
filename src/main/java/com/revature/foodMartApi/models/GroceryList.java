@@ -16,12 +16,12 @@ public class GroceryList {
 
     @JoinColumn(name = "list_id", nullable = false)
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, optional = false)
-    @JsonIgnoreProperties({"user"})
+    //@JsonIgnoreProperties({"user"})
     private UserList listId;
 
     @JoinColumn(name = "item_id", nullable = false)
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, optional = false)
-    @JsonIgnoreProperties({"itemName","description", "itemPrice", "inventoryCount"})
+    //@JsonIgnoreProperties({"itemName","description", "itemPrice", "inventoryCount"})
     private GroceryItem itemId;
 
     @Column(name = "item_count", nullable = false)

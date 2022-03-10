@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.endpoint.web.Link;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -131,8 +132,8 @@ class GroceryListServiceTestSuite {
         groceryLists.add(new GroceryList(5L, new UserList(1, new User()), new GroceryItem(),  2));
         groceryLists.add(new GroceryList(6L, new UserList(1, new User()), new GroceryItem(),  7));
 
-        when(mockGroceryListDAO.findByUserListId(3)).thenReturn(Optional.ofNullable(groceryLists.get(3)));
-        Optional<GroceryList> foundGroceryList = sut.findByUserListId(3);
+        when(mockGroceryListDAO.findByUserListId(3)).thenReturn((List<GroceryList>) groceryLists.get(3));
+        List<GroceryList> foundGroceryList = sut.findByUserListId(3);
 
         assertNotNull(foundGroceryList);
         verify(mockGroceryListDAO, times(1)).findByUserListId(3);
@@ -149,7 +150,7 @@ class GroceryListServiceTestSuite {
         groceryLists.add(new GroceryList(6L, new UserList(1, new User()), new GroceryItem(),  7));
 
         when(mockGroceryListDAO.findByUserListId(8)).thenReturn(null);
-        Optional<GroceryList> foundGroceryList = sut.findByUserListId(8);
+        List<GroceryList> foundGroceryList = sut.findByUserListId(8);
 
         assertNull(foundGroceryList);
         verify(mockGroceryListDAO, times(1)).findByUserListId(8);
