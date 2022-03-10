@@ -19,19 +19,31 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.foodMartApi.models.UserList;
 import com.revature.foodMartApi.services.UserListService;
 
+/**
+ * UserListServlet which has mappings and handles requests
+ */
 @RestController
 @RequestMapping("/userLists")
 public class UserListServlet {
 	
 	private final UserListService userListService;
-	
-	
+
+
+	/**
+	 * @param userListService
+	 * constructor
+	 */
 	//constructor
 	@Autowired
 	public UserListServlet(UserListService userListService) {
 		this.userListService = userListService;
 	}
-	
+
+	/**
+	 * @param userList
+	 * @return
+	 * add a userList and returns it. Use JSON
+	 */
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	@ResponseBody
@@ -39,7 +51,12 @@ public class UserListServlet {
 		return userListService.addUserList(userList);
 		
 	}
-	
+
+	/**
+	 * @param id
+	 * @return
+	 * finds a userList by id and returns it. Using request params
+	 */
 	@GetMapping("/byId")
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
@@ -47,21 +64,34 @@ public class UserListServlet {
 		return userListService.findUserListById(id);
 		
 	}
-	
+
+	/**
+	 * @param id
+	 * @return
+	 * find userList by UserId and returns it. Params used.
+	 */
 	@GetMapping("/byUserId")
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	public Optional<UserList> findUserListByUserId(@RequestParam int id){
 		return userListService.findUserListByUserId(id);
 	}
-	
+
+	/**
+	 * @return
+	 * find and return all userLists in a List
+	 */
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	public List<UserList> findAll(){
 		return (List<UserList>)userListService.findAll();
 	}
-	
+
+	/**
+	 * @param id
+	 * delete a userList by Id. Use params
+	 */
 	@DeleteMapping("/byId")
 	@ResponseStatus(HttpStatus.OK)
 	public void deleteUserListById(@RequestParam int id) {
