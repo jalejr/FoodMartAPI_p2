@@ -44,7 +44,7 @@ public class UserListServlet {
 	 * @return
 	 * add a userList and returns it. Use JSON
 	 */
-	@PostMapping
+	@PostMapping("/addUserList")
 	@ResponseStatus(HttpStatus.CREATED)
 	@ResponseBody
 	public UserList addUserList(@RequestBody UserList userList) {
