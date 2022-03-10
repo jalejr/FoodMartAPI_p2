@@ -72,7 +72,7 @@ public class RoleService {
 	/**
 	 * @param id
 	 * @return
-	 * returns a role based on Id 
+	 * returns a role based on Id
 	 */
 	public Role findRoleById(int id) {
 		return roleDAO.findRoleById(id);
