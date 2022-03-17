@@ -22,6 +22,7 @@ public class UserListServiceTestSuite {
 	UserListDAO mockUserListDAO;
 	
 	
+
 	@BeforeEach
 	void setUp() throws Exception {
 		

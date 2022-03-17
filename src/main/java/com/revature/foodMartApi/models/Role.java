@@ -33,6 +33,7 @@ public class Role {
 	@Column(name = "role_id")
 	private int roleId;
 
+
 	@Column(name = "role_description",unique = true, nullable = false)
 	private String description;
 
